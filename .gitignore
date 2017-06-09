@@ -1,2 +1,6 @@
 *xml
+*pyc
+*zip
 dist/
+dependencies/
+temp/
