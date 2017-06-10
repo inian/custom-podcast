@@ -1,0 +1,2 @@
+-r prod-requirements.txt
+awscli==1.11.102

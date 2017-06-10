@@ -1,5 +1,0 @@
-feedgen==0.5.1
-feedparser==5.2.1
-pytube=6.2.2
-ffmpy=0.2.2
-boto3=1.4.4
