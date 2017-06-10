@@ -19,14 +19,14 @@ class Feed(object):
         fg.load_extension('podcast')
         fg.podcast.itunes_category('Technology', 'Podcasting')
         fg.podcast.itunes_author('Inian')
-        fg.podcast.itunes_subtitle("Inian's personalised podcast")
-        fg.podcast.itunes_summary("Inian's personalised podcast")
+        fg.podcast.itunes_subtitle(self.description)
+        fg.podcast.itunes_summary(self.description)
         fg.podcast.itunes_image(
-            "http://streaming.osu.edu/podcast/iTunesU/Images/Icons/Generic_OSU.jpg")
+            "https://static.pexels.com/photos/174/coffee-apple-iphone-laptop.jpg")
 
         fg.title(self.title)
         fg.link(href=self.link, rel='alternate')
-        fg.description("Inian's personalised podcast")
+        fg.description(self.description)
 
         for item in self.items:
             fe = fg.add_entry()

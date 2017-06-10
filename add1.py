@@ -12,7 +12,6 @@ import boto3
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
-
 def downloadFeed(url):
     response = urllib2.urlopen(url)
     html = response.read()
@@ -40,9 +39,9 @@ def downloadVideo(videoURL, filepath):
     return video.filename
 
 
-def uploadToS3(filename, filepath):
+def uploadToS3(filename, filepath, s3bucket):
     s3 = boto3.client('s3')
-    s3.upload_file(filepath, "custom-podcasts", filename,
+    s3.upload_file(filepath, s3bucket, filename,
                    ExtraArgs={'ACL': 'public-read'})
 
 
@@ -56,6 +55,7 @@ def lambda_handler(event, context):
 
     youtubeURL = event['youtubeURL']
     podcastURL = event['podcastURL']
+    s3bucket = "custom-podcasts"
 
     # get current podcast.xml
     logger.info(youtubeURL)
@@ -69,19 +69,24 @@ def lambda_handler(event, context):
     filepath = '/tmp/' + filename
     videoName = downloadVideo(youtubeURL, filepath)
     logger.info(videoName)
-    uploadToS3(filename, filepath)
+    uploadToS3(filename, filepath, s3bucket)
 
-    logger.info("https://s3.amazonaws.com/custom-podcasts/" + filename)
+    s3FileName = "https://s3.amazonaws.com/" + s3bucket + "/" + filename
+    logger.info(s3FileName)
     # extractAudio('/tmp/video.mp4')
 
-    newFeedItem = FeedItem(id=unique_name, title=videoName, link="https://s3.amazonaws.com/custom-podcasts/" + filename,
-                           mimeType='video/mp4', length=str(os.path.getsize(filepath)), description='Well what do you want me to say')
+    mimeType = 'video/mp4'
+    length = str(os.path.getsize(filepath))
+    description = 'Well what do you want me to say'
+
+    newFeedItem = FeedItem(id=unique_name, title=videoName, link=s3FileName,
+                           mimeType=mimeType, length=length, description=description)
     f.addEntry(newFeedItem)
 
     # insert and generate new podcast.xml
     f.writeFeed('/tmp/podcast.xml')
 
-    uploadToS3('podcast.xml', '/tmp/podcast.xml')
+    uploadToS3('podcast.xml', '/tmp/podcast.xml', s3bucket)
 
     response = {
         "isBase64Encoded": False,
