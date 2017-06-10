@@ -1,15 +1,14 @@
+import urllib2
+import os
+import logging
+import uuid
+
 import feedparser
-from feedgen.feed import FeedGenerator
 from FeedItem import FeedItem
 from Feed import Feed
 from pytube import YouTube
-import urllib2
-import os
 import boto3
-import uuid
-import json
 
-import logging
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 

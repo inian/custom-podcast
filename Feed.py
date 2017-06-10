@@ -1,6 +1,4 @@
-import FeedItem
 from feedgen.feed import FeedGenerator
-
 
 class Feed(object):
     """docstring for Feed"""
