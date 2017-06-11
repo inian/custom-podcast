@@ -1,80 +1,11 @@
 {
     "AWSTemplateFormatVersion": "2010-09-09",
-    "Metadata": {
-        "AWS::CloudFormation::Designer": {
-            "f9a2646c-517a-4d0c-866a-dd7ffbac8451": {
-                "size": {
-                    "width": 60,
-                    "height": 60
-                },
-                "position": {
-                    "x": 30,
-                    "y": 80
-                },
-                "z": 0,
-                "embeds": [],
-                "dependson": [
-                    "f7d9e06a-23bf-4a3d-8ba0-8d597aa213d7"
-                ],
-                "isrelatedto": [
-                    "f7d9e06a-23bf-4a3d-8ba0-8d597aa213d7"
-                ]
-            },
-            "f7d9e06a-23bf-4a3d-8ba0-8d597aa213d7": {
-                "size": {
-                    "width": 60,
-                    "height": 60
-                },
-                "position": {
-                    "x": 30,
-                    "y": 150
-                },
-                "z": 0,
-                "embeds": []
-            },
-            "42819e4b-5109-4c70-86d3-c0bc44295f60": {
-                "size": {
-                    "width": 60,
-                    "height": 60
-                },
-                "position": {
-                    "x": 320,
-                    "y": 70
-                },
-                "z": 0,
-                "embeds": []
-            },
-            "9f63df25-038d-4a48-ba86-ba8754a4fd75": {
-                "source": {
-                    "id": "7a728802-3226-4155-8b63-c8b73a4f462f"
-                },
-                "target": {
-                    "id": "42819e4b-5109-4c70-86d3-c0bc44295f60"
-                },
-                "z": 1
-            },
-            "e0176375-a5d1-46f1-928a-063be8c5b66e": {
-                "source": {
-                    "id": "f9a2646c-517a-4d0c-866a-dd7ffbac8451"
-                },
-                "target": {
-                    "id": "f7d9e06a-23bf-4a3d-8ba0-8d597aa213d7"
-                },
-                "z": 1
-            }
-        }
-    },
     "Resources": {
         "PodcastBucket": {
             "Type": "AWS::S3::Bucket",
             "Properties": {
                 "AccessControl": "PublicRead",
                 "BucketName": "custom-podcast-1"
-            },
-            "Metadata": {
-                "AWS::CloudFormation::Designer": {
-                    "id": "42819e4b-5109-4c70-86d3-c0bc44295f60"
-                }
             }
         },
         "LambdaFunction": {
@@ -94,11 +25,6 @@
                 "Runtime": "python2.7",
                 "Timeout": "300",
                 "Handler": "add1.lambda_handler"
-            },
-            "Metadata": {
-                "AWS::CloudFormation::Designer": {
-                    "id": "f9a2646c-517a-4d0c-866a-dd7ffbac8451"
-                }
             },
             "DependsOn": [
                 "LambdaRole"
@@ -122,11 +48,6 @@
                             "Action": "sts:AssumeRole"
                         }
                     ]
-                }
-            },
-            "Metadata": {
-                "AWS::CloudFormation::Designer": {
-                    "id": "f7d9e06a-23bf-4a3d-8ba0-8d597aa213d7"
                 }
             }
         }
